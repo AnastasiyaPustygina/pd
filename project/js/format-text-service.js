@@ -4,46 +4,42 @@ const fileList = document.getElementById('file-list');
 const importBtn = document.getElementById('import-bt');
 const exportBtn = document.getElementById('export-bt');
 
-    // Форматирование текста
-    function formatText(command) {
-        document.execCommand(command, false, null);
-        textArea.focus();
-    }
+function formatText(command) {
+    document.execCommand(command, false, null);
+    textArea.focus();
+}
 
-    document.getElementById('bold-btn').addEventListener('click', () => formatText('bold'));
-    document.getElementById('italic-btn').addEventListener('click', () => formatText('italic'));
-    document.getElementById('underline-btn').addEventListener('click', () => formatText('underline'));
-    document.getElementById('strike-btn').addEventListener('click', () => formatText('strikeThrough'));
-    document.getElementById('ordered-list-btn').addEventListener('click', () => formatText('insertOrderedList'));
-    document.getElementById('unordered-list-btn').addEventListener('click', () => formatText('insertUnorderedList'));
+document.getElementById('bold-btn').addEventListener('click', () => formatText('bold'));
+document.getElementById('italic-btn').addEventListener('click', () => formatText('italic'));
+document.getElementById('underline-btn').addEventListener('click', () => formatText('underline'));
+document.getElementById('strike-btn').addEventListener('click', () => formatText('strikeThrough'));
+document.getElementById('ordered-list-btn').addEventListener('click', () => formatText('insertOrderedList'));
+document.getElementById('unordered-list-btn').addEventListener('click', () => formatText('insertUnorderedList'));
 
-const filesData = {}; // Объект для хранения содержимого файлов
-let activeFile = null; // Текущий активный файл
+const filesData = {};
+let activeFile = null;
+addFileToList('first-file.txt', '');
 
-// Обработчик кнопки "Загрузить"
 importBtn.addEventListener('click', () => fileInput.click());
+
 fileInput.addEventListener('change', (event) => {
     const files = Array.from(event.target.files);
 
     files.forEach((file) => {
         const fileName = file.name;
-
         const reader = new FileReader();
+
         reader.onload = (e) => {
             let fileContent = '';
-
-            // Обработка TXT
             if (file.type === 'text/plain') {
                 fileContent = e.target.result;
                 addFileToList(fileName, fileContent);
-            } 
-            // Обработка DOCX
-            else if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+            } else if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
                 const arrayBuffer = e.target.result;
                 mammoth.extractRawText({ arrayBuffer: arrayBuffer })
                     .then((result) => {
                         fileContent = result.value;
-                        addFileToList(fileName, fileContent); // Передаем содержимое файла в обработчик
+                        addFileToList(fileName, fileContent);
                     })
                     .catch((err) => {
                         console.error('Ошибка при обработке DOCX файла:', err);
@@ -58,40 +54,41 @@ fileInput.addEventListener('change', (event) => {
             reader.readAsText(file, 'utf-8');
         } else if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
             reader.readAsArrayBuffer(file);
+        } else {
+            alert('Поддерживаются только файлы TXT и DOCX.');
         }
     });
 });
 
-// Добавление файла в список
 function addFileToList(fileName, fileContent) {
     filesData[fileName] = fileContent;
-
-    // Создание кнопки для файла
+    const spanFile = document.createElement('span');
+    spanFile.className = 'icon-file-bt';
     const fileButton = document.createElement('button');
-    fileButton.textContent = fileName;
-    fileButton.className = 'file-item';
+    fileButton.className="file-item";
+    fileButton.appendChild(spanFile);
+    const fileNameText = document.createTextNode(fileName);
+    fileButton.appendChild(fileNameText);
     fileButton.dataset.fileName = fileName;
 
-    // Установка обработчика для переключения файла
     fileButton.addEventListener('click', () => {
         saveActiveFile();
         setActiveFile(fileName);
     });
 
-    // Добавляем кнопку в список файлов
     fileList.appendChild(fileButton);
-
-    // Устанавливаем файл активным (если это первый файл или выбран новый)
     setActiveFile(fileName);
-    textArea.innerText = filesData[fileName]
+    textArea.innerText = filesData[fileName] || '';
 }
 
-// Установка активного файла
 function setActiveFile(fileName) {
-    // Снимаем активность со всех кнопок
+    if (!textArea) {
+        console.error('Текстовая область не найдена!');
+        return;
+    }
+
     Array.from(fileList.children).forEach((button) => button.classList.remove('active'));
 
-    // Активируем текущую кнопку
     const activeButton = Array.from(fileList.children).find(
         (button) => button.dataset.fileName === fileName
     );
@@ -99,23 +96,16 @@ function setActiveFile(fileName) {
         activeButton.classList.add('active');
     }
 
-    // Проверяем существование текстовой области перед установкой
-    if (textArea) {
-        activeFile = fileName;
-        textArea.innerText = filesData[fileName] || ''; // Устанавливаем содержимое или пустую строку
-    } else {
-        console.error('Текстовая область не найдена!');
-    }
+    activeFile = fileName;
+    textArea.innerText = filesData[fileName] || '';
 }
 
-// Сохранение изменений текущего файла
 function saveActiveFile() {
     if (activeFile) {
         filesData[activeFile] = textArea.innerText;
     }
 }
 
-// Скачивание активного файла
 exportBtn.addEventListener('click', () => {
     saveActiveFile();
     if (!activeFile) {
