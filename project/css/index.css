@@ -1,0 +1,154 @@
+body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #313131;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            background: #252525;
+        }
+
+        header h1 {
+            margin-left: 20px;
+            font-weight: 700;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        header h1 span {
+            color: #3cc1a4 /* Мятный зеленый */
+        }
+        button {
+    align-items: center;
+}
+        .text-format-buttons, .file-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .file-buttons{
+            margin-left: auto;
+        }
+        .text-format-buttons button, .file-buttons button {
+
+            display: flex;
+            background: #252525;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 14px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .text-area-container {
+            display: flex;
+            gap: 20px;
+            margin-top:12px;
+            margin-bottom: 20px;
+        }
+
+        .text-area {
+            flex: 4;
+            width: 80%;
+            background: #252525;
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 14px;
+            color: #ffffff;
+            resize: none;
+            height: 300px;
+            overflow-y: auto;
+            border: none
+        }
+
+        .file-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .file-list button {
+            display: flex;
+            background: #252525;
+            border: none;
+            border-radius: 4px;
+            color: #ffffff;
+            padding: 10px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .action-buttons {
+            display: flex;
+            box-sizing: border-box;
+            justify-content: center;
+            gap: 20px;
+            width: 80%;
+            padding-right: 10px;
+        }
+
+        .action-buttons button {
+            margin-right: auto;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+
+            color: #ffffff;
+        }
+
+        .btn-correct {
+            background: #252525;
+            width: 30%;
+        }
+
+        .btn-rewrite { 
+            background: #252525;
+            width: 30%;
+        }
+
+        .btn-generate {
+            background-image: linear-gradient(to top right, #4a90e2, #3cc1a4);
+            width: 40%;
+        }
+        .icon-export-bt {
+  background-image: url("../img/icon-export-bt.svg");
+  width: 24px;
+  height: 24px;
+ margin-right: 8px;
+}
+
+        .icon-import-bt {
+  background-image: url("../img/icon-import-bt.svg");
+
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+        .icon-file-bt {
+  background-image: url("../img/icon-file-bt.svg");
+
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+.file-item.active {
+            border: 2px solid #3cc1a4; /* Мятная обводка */
+            border-radius: 4px;
+            background-color: #252525;
+        }

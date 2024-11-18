@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyAI</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script> 
+</head>
+<body>
+  <header>
+            <h1>Poly<span>AI</span></h1>
+        </header>
+    <div class="container">
+ <div class="text-format-buttons">
+        <button id="bold-btn">
+            <img src="img/text-action-icon/t-bold.svg" alt="Bold" width="12" height="12">
+        </button>
+        <button id="italic-btn">
+            <img src="img/text-action-icon/t-italic.svg" alt="Italic" width="12" height="12">
+        </button>
+        <button id="underline-btn">
+            <img src="img/text-action-icon/t-underline.svg" alt="Underline" width="12" height="12">
+        </button>
+        <button id="strike-btn">
+            <img src="img/text-action-icon/t-cross.svg" alt="Strikethrough" width="12" height="12">
+        </button>
+        <button id="ordered-list-btn">
+            <img src="img/text-action-icon/icon-list-number.svg" alt="Ordered List" width="20" height="20">
+        </button>
+        <button id="unordered-list-btn">
+            <img src="img/text-action-icon/icon-list.svg" alt="Unordered List" width="20" height="20">
+        </button>
+        <div class="file-buttons">
+            <button id="export-bt">
+                <span class="icon-export-bt"></span>
+                Скачать
+            </button>
+            <button id="import-bt">
+                <span class="icon-import-bt"></span>
+                Загрузить
+            </button>
+            <input type="file" id="file-input" style="display: none;" />
+        </div>
+    </div>
+        <div class="text-area-container">
+        <div class="text-area" id="text-area" contenteditable="true" placeholder="Введите текст здесь..."></div>
+        <div class="file-list" id="file-list">
+            <button id="file-bt">
+                <span class="icon-file-bt"></span>
+                first-file.txt
+            </button>
+        </div>
+    </div>
+
+        <!-- Кнопки действий -->
+        <div class="action-buttons">
+            <button class="btn-correct">Исправить</button>
+            <button class="btn-rewrite">Переписать</button>
+            <button class="btn-generate">Генерировать</button>
+        </div>
+    </div>
+    <script src="js/format-text-service.js"></script>
+</body>
+</html>
